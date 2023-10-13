@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':client:client-port')
+    implementation project(':client:client-adapter')
+    implementation project(':controller')
+}
+repositories {
+    mavenCentral()
+}
+kotlin {
+    jvmToolchain(17)
+}
