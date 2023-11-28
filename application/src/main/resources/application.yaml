@@ -1,4 +1,10 @@
 marvel:
-  domain: https://gateway.marvel.com/v1/public
-  publicKey: -
-  privateKey: -
+  domain: ""
+  publicKey: ""
+  privateKey: ""
+
+logging:
+  level:
+    org:
+      springframework:
+        web=debug:

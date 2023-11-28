@@ -1,9 +1,9 @@
-package br.com.ivan.marvel.client.port.dto.common
+package br.com.ivan.marvel.client.port.input.common
 
 import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class MarvelUrl(
+data class Urls(
     val type: String?,
     val url: String?
 )

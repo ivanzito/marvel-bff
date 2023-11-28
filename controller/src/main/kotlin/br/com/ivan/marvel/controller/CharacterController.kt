@@ -1,37 +1,38 @@
 package br.com.ivan.marvel.controller
 
-import CharactersRepository
+import br.com.ivan.marvel.client.port.CharactersClient
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.util.logging.Logger
 
 @RestController
 @RequestMapping("/marvel/characters")
-class CharacterController(val charactersRepository: CharactersRepository) {
+class CharacterController(private val charactersClient: CharactersClient) {
+
+    private val logger = Logger.getLogger(this::class.java.name)
+
+
     @GetMapping
     fun characters(
-        //@RequestParam(required = false, name = "name") name: String?,
-        @RequestParam(required = true, name = "startsWith") startsWith: String) =
-        charactersRepository.characterStartsWith(startsWith)
+        @RequestParam(required = false, name = "startsWith") startsWith: String?,
+        @RequestParam(required = false, name = "offset") offset: Int?,
+        @RequestParam(required = false, name = "limit") limit: Int?
+    ) = ResponseEntity
+            .status(HttpStatus.OK)
+            .body(charactersClient.characterStartsWith(startsWith, offset, limit))
+
+
     @GetMapping("/{id}")
-    fun charactersById(@PathVariable("id") id: String) =
-        charactersRepository.character(id)
-
-    @GetMapping("/{id}/events")
-    fun events(@PathVariable("id") id: String) =
-        charactersRepository.events(id)
-
-    @GetMapping("/{id}/series")
-    fun series(@PathVariable("id") id: String) =
-        charactersRepository.series(id)
-
-    @GetMapping("/{id}/stories")
-    fun stories(@PathVariable("id") id: String) =
-        charactersRepository.stories(id)
-
-    @GetMapping("/{id}/comics")
-    fun comics(@PathVariable("id") id: String) =
-        charactersRepository.comics(id);
+    fun charactersById(
+        @PathVariable("id") id: String,
+        @RequestParam(required = false, name = "offset") offset: Int?,
+        @RequestParam(required = false, name = "limit") limit: Int?
+    ) = ResponseEntity
+            .status(HttpStatus.OK)
+            .body(charactersClient.character(id, offset, limit))
 }

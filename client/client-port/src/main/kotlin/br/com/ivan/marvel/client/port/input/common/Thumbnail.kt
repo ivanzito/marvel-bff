@@ -1,4 +1,4 @@
-package br.com.ivan.marvel.client.port.dto.common
+package br.com.ivan.marvel.client.port.input.common
 
 import com.fasterxml.jackson.annotation.JsonInclude
 
@@ -6,6 +6,5 @@ import com.fasterxml.jackson.annotation.JsonInclude
 data class MarvelThumbnail(
     val path: String?,
     val extension: String?
-) {
-    fun MarvelThumbnail.createUrl() = this.path + "." + extension
-}
+)
+fun MarvelThumbnail.createUrl() = "$path.$extension"
